@@ -20,10 +20,10 @@ public class PlayerController : MonoBehaviour {
     private AudioSource aSource;
     public AudioClip shoot;
 
+    //Global variables for player's stats
     private static int health;
     public static int highestScore;
     public static int score;
-
     public static int level = 1;
 
 	// Use this for initialization
@@ -38,9 +38,10 @@ public class PlayerController : MonoBehaviour {
         holder = GameObject.FindGameObjectWithTag("Holder").GetComponent<Holder>();
         bulletParent = holder.bulletParent;
         
-
+        //Set health at first load of the script
         health = 100;
 
+        //If scores didn't exist, initializes them
         if (score == null)
             score = 0;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         //Stores the 2D coordinates into a Vector2 object for simpler usage
         transform2d = new Vector2(this.transform.position.x, this.transform.position.y);
 
+        //If shift is pressed, doubles the speed
         if (Input.GetKey(KeyCode.LeftShift))
             mvntSpeed = 4;
         else
@@ -82,23 +84,29 @@ public class PlayerController : MonoBehaviour {
             
         }
 
+        //Turns the player more red with the health they loose or more white with the health they gain
         this.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.red, Color.white, (float)health / 100);
 
+        //Updates the score on screen and saves score if greater than current highest
         holder.scoreText.text = "Score: " + score;
         if (score > highestScore)
             highestScore = score;
 
+        //Levels up and notifies the player each time they have passed a new level
         if (score >= 200 * level)
         {
             level++;
             holder.levelUpText.GetComponent<AlwaysFade>().LevelUp();
         }
 
+        //Updates the scores in the menu's script
         holder.scores.setScores(score, highestScore);
 
+        //Exits to main menu on Escape
         if (Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene(0);
 
+        //Reloads the scene on Space
         if (Input.GetKeyDown(KeyCode.Space))
         {
             score -= 10;
@@ -117,7 +125,8 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
-
+    
+    //Callback for the player to take damage and reloads the level on death with score loss
     public void TakeDamage(int damage)
     {
         
@@ -131,6 +140,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+
+    //Accessors and setters for the static variables
     public int getLevel() { return level; }
 
     public void addScore(int val) { score += val; }

@@ -6,7 +6,7 @@ public class pickup : MonoBehaviour {
 
 
     private AudioSource aSource;
-    public AudioClip shoot;
+    public AudioClip sound;
 
 
     private void Start()
@@ -16,12 +16,10 @@ public class pickup : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Plays a sound on shoot action
-        
-
+        //Plays a sound on collision and heals the player
         if (other.gameObject.tag == "Player")
         {
-            aSource.PlayOneShot(shoot, 0.5f);
+            aSource.PlayOneShot(sound, 0.5f);
             other.gameObject.GetComponent<PlayerController>().pickUpHP(50);
             Destroy(this.gameObject, 0.1f);
         }

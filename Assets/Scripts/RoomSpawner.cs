@@ -16,6 +16,7 @@ public class RoomSpawner : MonoBehaviour {
     private Holder holder;
     public Transform parent;
 
+    //Local variable for the ID of the room to spawn
     private int rand;
     
     //Boolean flag to see if a spawner has already generated a room or not
@@ -26,7 +27,7 @@ public class RoomSpawner : MonoBehaviour {
 
     private void Start()
     {
-
+        //If the spawner has spawned at the start point, sets life time to 0 for immediate destruction
         if (transform.position.x == 0 && transform.position.y == 0)
             waitToSelfDestruct = 0f;
 
@@ -80,21 +81,25 @@ public class RoomSpawner : MonoBehaviour {
     //If two spawners are colliding at the same spot, deals with colliding by denying both of them and forcing a full room to be generated
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //If the spawnpoint detects another one spawning on top of him
         try
         {
             if (other.CompareTag("SpawnPoint"))
             {
+                //If the detected spawnpoint didn't do anything yet and the current either
                 if (!other.GetComponent<RoomSpawner>().hasSpawnedFlag && !hasSpawnedFlag)
                 {
+                    //Creates full room and destroys itself
                     Instantiate(holder.closedRoom, transform.position, holder.closedRoom.transform.rotation, parent);
                     Destroy(gameObject);
                 }
+                //Notifies that a room has been created at this location
                 hasSpawnedFlag = true;
             }
         }
         catch
         {
-            //Debug.Log("t");
+            //Catch an error if needed
         }
     }
 }

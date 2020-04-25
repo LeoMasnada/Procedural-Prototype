@@ -189,7 +189,7 @@ MonoBehaviour:
   bulletTemplate: {fileID: 114153869144406306, guid: d4d4198329564674c90065bb69655939,
     type: 2}
   aiType: 0
-  shoot: {fileID: 8300000, guid: 787bd2d3bfc07c64fa68dd49a5bec550, type: 3}
+  clip: {fileID: 8300000, guid: 787bd2d3bfc07c64fa68dd49a5bec550, type: 3}
 --- !u!212 &212095127491146294
 SpriteRenderer:
   m_ObjectHideFlags: 1

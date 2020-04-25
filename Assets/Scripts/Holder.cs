@@ -15,6 +15,7 @@ public class Holder: MonoBehaviour {
 
     public GameObject closedRoom;
 
+    //Objects to attach new generated assets to in the hierarchy
     public Transform roomParent;
     public Transform bulletParent;
 
